@@ -4,41 +4,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pembuat CV Teman Dekat</title>
+<title>Pembuat CV Online</title>
 <style>
 *{box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f0f4f9;color:#172033;margin:0;padding:15px}
 .container{max-width:760px;margin:auto}
 .card{background:white;padding:20px;border-radius:14px;margin-bottom:15px;box-shadow:0 3px 12px #0001}
-h1{font-size:25px;margin-top:0;color:#164e9a}
-h2{font-size:18px;margin-top:25px;color:#164e9a}
-p{line-height:1.5}
+h1,h2{color:#164e9a}
+h1{font-size:25px}
 label{display:block;font-weight:bold;margin:13px 0 6px}
-input,textarea{width:100%;padding:12px;border:1px solid #ccd4e0;border-radius:8px;font:inherit}
-textarea{min-height:90px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #ccd4e0;border-radius:8px;font:inherit;background:white}
+textarea{min-height:85px}
 button{border:0;padding:13px;border-radius:8px;font-weight:bold;cursor:pointer}
 .primary{background:#1764cf;color:white}
 .secondary{background:#e7edf7;color:#18375f}
-.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}
 .actions button{flex:1}
-.note{font-size:13px;color:#5a6474}
-@media print{
-body{background:white;padding:0}
-.no-print{display:none!important}
-.card{box-shadow:none}
-input,textarea{border:0;padding:2px}
-}
+#preview{width:120px;height:150px;object-fit:cover;border:1px solid #ccd4e0;border-radius:8px;display:none;margin-top:10px}
+.note{font-size:13px;color:#5a6474;line-height:1.5}
+@media print{.no-print{display:none!important}body{background:white;padding:0}.card{box-shadow:none}}
 </style>
 </head>
 <body>
 <div class="container">
 <section class="card">
 <h1>📄 Pembuat CV Online</h1>
-<p>Isi formulir berikut untuk membuat CV. Setelah selesai, unduh sebagai Word atau simpan sebagai PDF.</p>
+<p>Isi data diri, unggah foto, lalu buat CV Word atau PDF.</p>
 
 <form id="cvForm">
+<label>Foto profil</label>
+<input type="file" id="foto" accept="image/*">
+<img id="preview" alt="Pratinjau foto profil">
+<p class="note">Pilih foto dari galeri HP. Gunakan foto yang jelas dan menghadap ke depan.</p>
+
 <label>Nama lengkap *</label>
-<input id="nama" required placeholder="Masukkan nama lengkap">
+<input id="nama" required placeholder="Nama lengkap">
 
 <label>Nomor HP / WhatsApp</label>
 <input id="hp" placeholder="08xxxxxxxxxx">
@@ -53,16 +53,16 @@ input,textarea{border:0;padding:2px}
 <input id="posisi" placeholder="Contoh: Teknisi Telekomunikasi">
 
 <label>Profil singkat</label>
-<textarea id="profil" placeholder="Ceritakan pengalaman dan kemampuanmu"></textarea>
+<textarea id="profil" placeholder="Ceritakan kemampuan dan pengalamanmu"></textarea>
 
 <label>Pendidikan terakhir</label>
-<textarea id="pendidikan" placeholder="Nama sekolah, jurusan, tahun lulus"></textarea>
+<textarea id="pendidikan" placeholder="Sekolah, jurusan, tahun lulus"></textarea>
 
 <label>Pengalaman kerja</label>
-<textarea id="pengalaman" placeholder="Perusahaan, jabatan, proyek, dan periode kerja"></textarea>
+<textarea id="pengalaman" placeholder="Perusahaan, jabatan, proyek, periode kerja"></textarea>
 
 <label>Keahlian</label>
-<textarea id="keahlian" placeholder="Contoh: Instalasi, troubleshooting, jaringan"></textarea>
+<textarea id="keahlian" placeholder="Contoh: instalasi, troubleshooting, jaringan"></textarea>
 
 <label>Sertifikat / Pelatihan</label>
 <textarea id="sertifikat" placeholder="Nama sertifikat dan tahun"></textarea>
@@ -76,32 +76,61 @@ input,textarea{border:0;padding:2px}
 <button type="reset" class="secondary">Reset</button>
 </div>
 </form>
-<p class="note">Data formulir diproses di browser ini dan tidak dikirim ke server oleh kode ini.</p>
+<p class="note">Data dan foto diproses di browser. Kode ini tidak mengirimkannya ke server.</p>
 </section>
 </div>
 
 <script>
+let fotoData = '';
+
+document.getElementById('foto').addEventListener('change', function(){
+ const file = this.files && this.files[0];
+ const preview = document.getElementById('preview');
+ fotoData = '';
+ if(!file){
+   preview.removeAttribute('src');
+   preview.style.display='none';
+   return;
+ }
+ if(!file.type.startsWith('image/')){
+   alert('Pilih file gambar, misalnya JPG atau PNG.');
+   this.value='';
+   return;
+ }
+ if(file.size > 5*1024*1024){
+   alert('Ukuran foto maksimal 5 MB. Pilih foto yang lebih kecil.');
+   this.value='';
+   return;
+ }
+ const reader = new FileReader();
+ reader.onload = function(e){
+   fotoData = e.target.result;
+   preview.src = fotoData;
+   preview.style.display='block';
+ };
+ reader.readAsDataURL(file);
+});
+
 function ambilData(){
  const nama=document.getElementById('nama').value.trim();
  if(!nama){
-  alert('Nama lengkap wajib diisi.');
-  document.getElementById('nama').focus();
-  return null;
+   alert('Nama lengkap wajib diisi.');
+   document.getElementById('nama').focus();
+   return null;
  }
  const ids=['nama','hp','email','alamat','posisi','profil',
  'pendidikan','pengalaman','keahlian','sertifikat','bahasa'];
- const data={};
+ const d={foto:fotoData};
  ids.forEach(id=>{
-  data[id]=document.getElementById(id).value.trim();
+   d[id]=document.getElementById(id).value.trim();
  });
- return data;
+ return d;
 }
 
-function aman(teks){
- return teks.replace(/[&<>"']/g,function(c){
-  return {'&':'&amp;','<':'&lt;','>':'&gt;',
-  '"':'&quot;',"'":'&#39;'}[c];
- });
+function aman(s){
+ return String(s||'').replace(/[&<>"']/g,c=>({
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+ })[c]);
 }
 
 function bagian(judul,isi){
@@ -111,16 +140,21 @@ function bagian(judul,isi){
 }
 
 function dokumen(d){
+ const foto = d.foto
+ ? '<img class="foto" src="'+d.foto+'" alt="Foto profil">'
+ : '';
  return `<!DOCTYPE html>
  <html lang="id"><head><meta charset="UTF-8">
  <style>
  body{font-family:Arial,sans-serif;color:#222;margin:35px;line-height:1.5}
- h1{color:#174b86;font-size:26px}
+ h1{color:#174b86;font-size:26px;margin-bottom:5px}
  h2{font-size:16px;color:#174b86;border-bottom:1px solid #bbb;padding-bottom:4px;margin-top:22px}
+ .header{display:flex;align-items:center;gap:18px;margin-bottom:15px}
+ .foto{width:105px;height:130px;object-fit:cover;border-radius:5px}
  .info{color:#555}
  </style></head><body>
- <h1>${aman(d.nama)}</h1>
- <p class="info">${[d.posisi,d.hp,d.email,d.alamat].filter(Boolean).map(aman).join(' | ')}</p>
+ <div class="header">${foto}<div><h1>${aman(d.nama)}</h1>
+ <p class="info">${[d.posisi,d.hp,d.email,d.alamat].filter(Boolean).map(aman).join(' | ')}</p></div></div>
  ${bagian('PROFIL SINGKAT',d.profil)}
  ${bagian('PENDIDIKAN',d.pendidikan)}
  ${bagian('PENGALAMAN KERJA',d.pengalaman)}
@@ -133,33 +167,40 @@ function dokumen(d){
 function unduhWord(){
  const d=ambilData();
  if(!d)return;
- const blob=new Blob(['\ufeff',dokumen(d)],
- {type:'application/msword'});
- const link=document.createElement('a');
- link.href=URL.createObjectURL(blob);
- link.download='CV-'+d.nama.replace(/[^a-z0-9_-]/gi,'_')+'.doc';
- document.body.appendChild(link);
- link.click();
- link.remove();
- setTimeout(()=>URL.revokeObjectURL(link.href),2000);
+ const blob=new Blob(['\ufeff',dokumen(d)],{type:'application/msword'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=url;
+ a.download='CV-'+d.nama.replace(/[^a-z0-9_-]/gi,'_')+'.doc';
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),3000);
 }
 
 function simpanPDF(){
  const d=ambilData();
  if(!d)return;
- const jendela=window.open('','_blank');
- if(!jendela){
-  alert('Pop-up diblokir. Izinkan pop-up di browser lalu coba lagi.');
-  return;
+ const w=window.open('','_blank');
+ if(!w){
+   alert('Pop-up diblokir. Izinkan pop-up pada browser lalu coba lagi.');
+   return;
  }
- jendela.document.open();
- jendela.document.write(dokumen(d));
- jendela.document.close();
+ w.document.open();
+ w.document.write(dokumen(d));
+ w.document.close();
  setTimeout(()=>{
-  jendela.focus();
-  jendela.print();
- },500);
+   w.focus();
+   w.print();
+ },800);
 }
+
+document.getElementById('cvForm').addEventListener('reset',function(){
+ fotoData='';
+ const p=document.getElementById('preview');
+ p.removeAttribute('src');
+ p.style.display='none';
+});
 </script>
 </body>
 </html>
