@@ -1,89 +1,165 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir Pembuat CV</title>
-    <link href="https://jsdelivr.net" rel="stylesheet">
-    <script src="https://cloudflare.com"></script>
-    <style>
-        #cv-template { font-family: Arial, sans-serif; padding: 30px; border: 1px solid #ddd; display: none; }
-        .cv-header { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pembuat CV Teman Dekat</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f0f4f9;color:#172033;margin:0;padding:15px}
+.container{max-width:760px;margin:auto}
+.card{background:white;padding:20px;border-radius:14px;margin-bottom:15px;box-shadow:0 3px 12px #0001}
+h1{font-size:25px;margin-top:0;color:#164e9a}
+h2{font-size:18px;margin-top:25px;color:#164e9a}
+p{line-height:1.5}
+label{display:block;font-weight:bold;margin:13px 0 6px}
+input,textarea{width:100%;padding:12px;border:1px solid #ccd4e0;border-radius:8px;font:inherit}
+textarea{min-height:90px}
+button{border:0;padding:13px;border-radius:8px;font-weight:bold;cursor:pointer}
+.primary{background:#1764cf;color:white}
+.secondary{background:#e7edf7;color:#18375f}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
+.actions button{flex:1}
+.note{font-size:13px;color:#5a6474}
+@media print{
+body{background:white;padding:0}
+.no-print{display:none!important}
+.card{box-shadow:none}
+input,textarea{border:0;padding:2px}
+}
+</style>
 </head>
-<body class="bg-light p-4">
+<body>
+<div class="container">
+<section class="card">
+<h1>📄 Pembuat CV Online</h1>
+<p>Isi formulir berikut untuk membuat CV. Setelah selesai, unduh sebagai Word atau simpan sebagai PDF.</p>
 
-    <div class="container bg-white p-4 rounded shadow" style="max-width: 600px;">
-        <h2 class="mb-4 text-center">Isi Data CV Anda</h2>
-        
-        <form id="cvForm">
-            <div class="mb-3">
-                <label class="form-label">Nama Lengkap</label>
-                <input type="text" id="inputNama" class="form-control" required placeholder="Contoh: Budi Santoso">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Nomor Telepon</label>
-                <input type="text" id="inputKontak" class="form-control" required placeholder="Contoh: 08123456789">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Tentang Saya</label>
-                <textarea id="inputTentang" class="form-control" rows="3" placeholder="Ceritakan singkat profil profesional Anda..."></textarea>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Pengalaman Kerja</label>
-                <textarea id="inputKerja" class="form-control" rows="4" placeholder="Posisi - Perusahaan (Tahun)"></textarea>
-            </div>
-            <button type="button" onclick="generatePDF()" class="btn btn-primary w-100">Cetak CV ke PDF</button>
-        </form>
-    </div>
+<form id="cvForm">
+<label>Nama lengkap *</label>
+<input id="nama" required placeholder="Masukkan nama lengkap">
 
-    <div id="cv-template">
-        <div class="cv-header text-center">
-            <h1 id="pdfNama" style="margin: 0; text-transform: uppercase;"></h1>
-            <p id="pdfKontak" style="color: #666; margin: 5px 0 0 0;"></p>
-        </div>
-        <div class="cv-body">
-            <h3>Profil Profesional</h3>
-            <p id="pdfTentang"></p>
-            <hr>
-            <h3>Pengalaman Kerja</h3>
-            <p id="pdfKerja" style="white-space: pre-line;"></p>
-        </div>
-    </div>
+<label>Nomor HP / WhatsApp</label>
+<input id="hp" placeholder="08xxxxxxxxxx">
 
-    <script>
-        function generatePDF() {
-            const nama = document.getElementById('inputNama').value;
-            const kontak = document.getElementById('inputKontak').value;
-            const tentang = document.getElementById('inputTentang').value;
-            const kerja = document.getElementById('inputKerja').value;
+<label>Email</label>
+<input id="email" type="email" placeholder="nama@email.com">
 
-            if(!nama || !kontak) {
-                alert("Mohon isi Nama dan Kontak terlebih dahulu!");
-                return;
-            }
+<label>Alamat / Domisili</label>
+<input id="alamat" placeholder="Kota, provinsi">
 
-            document.getElementById('pdfNama').innerText = nama;
-            document.getElementById('pdfKontak').innerText = kontak;
-            document.getElementById('pdfTentang').innerText = tentang;
-            document.getElementById('pdfKerja').innerText = kerja;
+<label>Posisi yang dilamar</label>
+<input id="posisi" placeholder="Contoh: Teknisi Telekomunikasi">
 
-            const element = document.getElementById('cv-template');
-            element.style.display = 'block';
+<label>Profil singkat</label>
+<textarea id="profil" placeholder="Ceritakan pengalaman dan kemampuanmu"></textarea>
 
-            const opsi = {
-                margin:       10,
-                filename:     'CV_' + nama.replace(/\s+/g, '_') + '.pdf',
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
+<label>Pendidikan terakhir</label>
+<textarea id="pendidikan" placeholder="Nama sekolah, jurusan, tahun lulus"></textarea>
 
-            html2pdf().set(opsi).from(element).save().then(() => {
-                element.style.display = 'none';
-            });
-        }
-    </script>
+<label>Pengalaman kerja</label>
+<textarea id="pengalaman" placeholder="Perusahaan, jabatan, proyek, dan periode kerja"></textarea>
+
+<label>Keahlian</label>
+<textarea id="keahlian" placeholder="Contoh: Instalasi, troubleshooting, jaringan"></textarea>
+
+<label>Sertifikat / Pelatihan</label>
+<textarea id="sertifikat" placeholder="Nama sertifikat dan tahun"></textarea>
+
+<label>Bahasa</label>
+<textarea id="bahasa" placeholder="Contoh: Bahasa Indonesia"></textarea>
+
+<div class="actions no-print">
+<button type="button" class="primary" onclick="unduhWord()">Unduh Word</button>
+<button type="button" class="secondary" onclick="simpanPDF()">Simpan PDF</button>
+<button type="reset" class="secondary">Reset</button>
+</div>
+</form>
+<p class="note">Data formulir diproses di browser ini dan tidak dikirim ke server oleh kode ini.</p>
+</section>
+</div>
+
+<script>
+function ambilData(){
+ const nama=document.getElementById('nama').value.trim();
+ if(!nama){
+  alert('Nama lengkap wajib diisi.');
+  document.getElementById('nama').focus();
+  return null;
+ }
+ const ids=['nama','hp','email','alamat','posisi','profil',
+ 'pendidikan','pengalaman','keahlian','sertifikat','bahasa'];
+ const data={};
+ ids.forEach(id=>{
+  data[id]=document.getElementById(id).value.trim();
+ });
+ return data;
+}
+
+function aman(teks){
+ return teks.replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;',
+  '"':'&quot;',"'":'&#39;'}[c];
+ });
+}
+
+function bagian(judul,isi){
+ if(!isi)return '';
+ return '<h2>'+judul+'</h2><p>'+
+ aman(isi).replace(/\n/g,'<br>')+'</p>';
+}
+
+function dokumen(d){
+ return `<!DOCTYPE html>
+ <html lang="id"><head><meta charset="UTF-8">
+ <style>
+ body{font-family:Arial,sans-serif;color:#222;margin:35px;line-height:1.5}
+ h1{color:#174b86;font-size:26px}
+ h2{font-size:16px;color:#174b86;border-bottom:1px solid #bbb;padding-bottom:4px;margin-top:22px}
+ .info{color:#555}
+ </style></head><body>
+ <h1>${aman(d.nama)}</h1>
+ <p class="info">${[d.posisi,d.hp,d.email,d.alamat].filter(Boolean).map(aman).join(' | ')}</p>
+ ${bagian('PROFIL SINGKAT',d.profil)}
+ ${bagian('PENDIDIKAN',d.pendidikan)}
+ ${bagian('PENGALAMAN KERJA',d.pengalaman)}
+ ${bagian('KEAHLIAN',d.keahlian)}
+ ${bagian('SERTIFIKAT / PELATIHAN',d.sertifikat)}
+ ${bagian('BAHASA',d.bahasa)}
+ </body></html>`;
+}
+
+function unduhWord(){
+ const d=ambilData();
+ if(!d)return;
+ const blob=new Blob(['\ufeff',dokumen(d)],
+ {type:'application/msword'});
+ const link=document.createElement('a');
+ link.href=URL.createObjectURL(blob);
+ link.download='CV-'+d.nama.replace(/[^a-z0-9_-]/gi,'_')+'.doc';
+ document.body.appendChild(link);
+ link.click();
+ link.remove();
+ setTimeout(()=>URL.revokeObjectURL(link.href),2000);
+}
+
+function simpanPDF(){
+ const d=ambilData();
+ if(!d)return;
+ const jendela=window.open('','_blank');
+ if(!jendela){
+  alert('Pop-up diblokir. Izinkan pop-up di browser lalu coba lagi.');
+  return;
+ }
+ jendela.document.open();
+ jendela.document.write(dokumen(d));
+ jendela.document.close();
+ setTimeout(()=>{
+  jendela.focus();
+  jendela.print();
+ },500);
+}
+</script>
 </body>
 </html>
-
