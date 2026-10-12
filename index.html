@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pembuat CV</title>
+    <link href="https://jsdelivr.net" rel="stylesheet">
+    <script src="https://cloudflare.com"></script>
+    <style>
+        #cv-template { font-family: Arial, sans-serif; padding: 30px; border: 1px solid #ddd; display: none; }
+        .cv-header { border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
+    </style>
+</head>
+<body class="bg-light p-4">
+
+    <div class="container bg-white p-4 rounded shadow" style="max-width: 600px;">
+        <h2 class="mb-4 text-center">Isi Data CV Anda</h2>
+        
+        <form id="cvForm">
+            <div class="mb-3">
+                <label class="form-label">Nama Lengkap</label>
+                <input type="text" id="inputNama" class="form-control" required placeholder="Contoh: Budi Santoso">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nomor Telepon</label>
+                <input type="text" id="inputKontak" class="form-control" required placeholder="Contoh: 08123456789">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tentang Saya</label>
+                <textarea id="inputTentang" class="form-control" rows="3" placeholder="Ceritakan singkat profil profesional Anda..."></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Pengalaman Kerja</label>
+                <textarea id="inputKerja" class="form-control" rows="4" placeholder="Posisi - Perusahaan (Tahun)"></textarea>
+            </div>
+            <button type="button" onclick="generatePDF()" class="btn btn-primary w-100">Cetak CV ke PDF</button>
+        </form>
+    </div>
+
+    <div id="cv-template">
+        <div class="cv-header text-center">
+            <h1 id="pdfNama" style="margin: 0; text-transform: uppercase;"></h1>
+            <p id="pdfKontak" style="color: #666; margin: 5px 0 0 0;"></p>
+        </div>
+        <div class="cv-body">
+            <h3>Profil Profesional</h3>
+            <p id="pdfTentang"></p>
+            <hr>
+            <h3>Pengalaman Kerja</h3>
+            <p id="pdfKerja" style="white-space: pre-line;"></p>
+        </div>
+    </div>
+
+    <script>
+        function generatePDF() {
+            const nama = document.getElementById('inputNama').value;
+            const kontak = document.getElementById('inputKontak').value;
+            const tentang = document.getElementById('inputTentang').value;
+            const kerja = document.getElementById('inputKerja').value;
+
+            if(!nama || !kontak) {
+                alert("Mohon isi Nama dan Kontak terlebih dahulu!");
+                return;
+            }
+
+            document.getElementById('pdfNama').innerText = nama;
+            document.getElementById('pdfKontak').innerText = kontak;
+            document.getElementById('pdfTentang').innerText = tentang;
+            document.getElementById('pdfKerja').innerText = kerja;
+
+            const element = document.getElementById('cv-template');
+            element.style.display = 'block';
+
+            const opsi = {
+                margin:       10,
+                filename:     'CV_' + nama.replace(/\s+/g, '_') + '.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opsi).from(element).save().then(() => {
+                element.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
+
