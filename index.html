@@ -1,377 +1,244 @@
-
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pembuat CV Online</title>
-
-<style>
-*{box-sizing:border-box}
-body{
-  margin:0;padding:15px;
-  font-family:Arial,sans-serif;
-  background:#eef2f7;color:#222
-}
-.container{
-  max-width:900px;margin:auto;
-  background:white;padding:20px;
-  border-radius:12px;
-  box-shadow:0 3px 15px #0001
-}
-h1{text-align:center;color:#174a83}
-h2{color:#174a83;font-size:19px}
-label{display:block;font-weight:bold;margin-top:12px}
-input,textarea,select{
-  width:100%;padding:11px;margin-top:5px;
-  border:1px solid #bbb;border-radius:6px;
-  font-size:15px;background:white
-}
-textarea{min-height:80px;resize:vertical}
-button{
-  border:0;border-radius:6px;padding:12px;
-  margin-top:12px;font-weight:bold;
-  cursor:pointer;font-size:14px
-}
-.btn{background:#174a83;color:white;width:100%}
-.green{background:#16834a;color:white;width:100%}
-.orange{background:#e58a16;color:white;width:100%}
-#fotoPreview{
-  width:120px;height:145px;object-fit:cover;
-  border:1px solid #ccc;display:none;margin-top:10px
-}
-#hasil{margin-top:25px}
-.cv{
-  background:white;color:#222;padding:25px;
-  border:1px solid #ddd;line-height:1.5;
-  overflow-wrap:anywhere
-}
-.cv-header{
-  display:flex;gap:20px;align-items:center;
-  border-bottom:3px solid #174a83;padding-bottom:15px
-}
-.cv-photo{
-  width:110px;height:135px;object-fit:cover;
-  border:1px solid #aaa
-}
-.cv h2{border-bottom:1px solid #aaa;padding-bottom:5px}
-.cv p{margin:6px 0}
-.small{font-size:13px;color:#555}
-@media(max-width:500px){
- .container{padding:12px}
- .cv{padding:12px}
- .cv-header{gap:10px}
- .cv-photo{width:85px;height:110px}
-}
-@media print{
- body{background:white;padding:0}
- .container{box-shadow:none;padding:0;max-width:none}
- .form-area,h1,.actions,.instruction{display:none!important}
- #hasil{margin:0!important}
- .cv{border:0;padding:15mm}
-}
-</style>
-</head>
-
-<body>
-<div class="container">
-<h1>PEMBUAT CV ONLINE</h1>
-<p class="small">
-Isi data diri, tambahkan pengalaman kerja, lalu unduh CV
-dalam format Word atau PDF.
-</p>
-
-<div class="form-area">
-<h2>1. Foto Profil</h2>
-<label>Upload foto</label>
-<input type="file" id="foto" accept="image/*">
-<img id="fotoPreview" alt="Pratinjau foto">
-
-<h2>2. Data Diri</h2>
-<label>Nama lengkap *</label>
-<input id="nama" placeholder="Masukkan nama lengkap">
-
-<label>Posisi yang dilamar</label>
-<input id="posisi" placeholder="Contoh: Teknisi Telekomunikasi">
-
-<label>Tempat, tanggal lahir</label>
-<input id="lahir" placeholder="Contoh: Wonogiri, 10 Januari 2000">
-
-<label>Jenis kelamin</label>
-<select id="gender">
-<option value="">Pilih jenis kelamin</option>
-<option>Laki-laki</option>
-<option>Perempuan</option>
-</select>
-
-<label>Nomor HP / WhatsApp</label>
-<input id="hp" placeholder="08xxxxxxxxxx">
-
-<label>Email</label>
-<input id="email" type="email" placeholder="nama@email.com">
-
-<label>Alamat lengkap</label>
-<textarea id="alamat" placeholder="Alamat domisili"></textarea>
-
-<label>Agama (opsional)</label>
-<input id="agama" placeholder="Agama">
-
-<label>Status perkawinan (opsional)</label>
-<select id="status">
-<option value="">Pilih status</option>
-<option>Belum menikah</option>
-<option>Menikah</option>
-<option>Lainnya</option>
-</select>
-
-<h2>3. Pendidikan</h2>
-<label>Pendidikan terakhir</label>
-<input id="pendidikan" placeholder="Contoh: SMA / MA">
-
-<label>Nama sekolah</label>
-<input id="sekolah" placeholder="Nama sekolah">
-
-<label>Jurusan</label>
-<input id="jurusan" placeholder="Jurusan">
-
-<label>Tahun masuk - lulus</label>
-<input id="tahun" placeholder="Contoh: 2018 - 2021">
-
-<h2>4. Pengalaman Kerja</h2>
-<label>Nama perusahaan, posisi, proyek, dan periode</label>
-<textarea id="pengalaman" rows="7"
-placeholder="PT ABC - Teknisi Telekomunikasi (2023-2024)
-Proyek: IOH Nokia
-Tugas: Instalasi dan troubleshooting perangkat
-
-PT XYZ - Teknisi (2024-2025)
-Proyek: Huawei / ZTE"></textarea>
-
-<h2>5. Keahlian</h2>
-<label>Keahlian utama</label>
-<textarea id="keahlian"
-placeholder="Instalasi perangkat, troubleshooting, Ericsson, Huawei, ZTE, Nokia, jaringan 4G/5G"></textarea>
-
-<label>Pelatihan dan sertifikat</label>
-<textarea id="sertifikat"
-placeholder="K3 TKPK 1, pelatihan teknis, dan sertifikat lainnya"></textarea>
-
-<label>Bahasa</label>
-<input id="bahasa" placeholder="Contoh: Bahasa Indonesia">
-
-<h2>6. Tentang Saya</h2>
-<label>Ringkasan profil</label>
-<textarea id="profil"
-placeholder="Tuliskan ringkasan pengalaman, kemampuan, dan tujuan karier Anda."></textarea>
-
-<h2>7. Upload Dokumen Pendukung</h2>
-<p class="small">
-Pilih foto ijazah, sertifikat, KTP, atau dokumen lain.
-File digunakan untuk referensi dan nama file dicantumkan di CV.
-Dokumen tidak otomatis digabung ke file CV.
-</p>
-<label>Upload ijazah, sertifikat, dan dokumen</label>
-<input type="file" id="dokumen" multiple
-accept="image/*,.pdf,.doc,.docx">
-<div id="daftarDokumen" class="small"></div>
-
-<button class="btn" onclick="buatCV()">BUAT / PERBARUI CV</button>
-</div>
-
-<div id="hasil">
-<h2>Pratinjau CV</h2>
-<div id="cv" class="cv">
-<p>Isi formulir lalu tekan BUAT / PERBARUI CV.</p>
-</div>
-</div>
-
-<div class="actions">
-<h2>8. Download CV</h2>
-<button class="green" onclick="downloadWord()">DOWNLOAD WORD (.DOC)</button>
-<button class="orange" onclick="downloadPDF()">CETAK / SIMPAN PDF</button>
-<button class="btn" onclick="window.print()">CETAK CV</button>
-</div>
-
-<div class="instruction">
-<h2>Cara Pakai</h2>
-<p>1. Isi semua data diri dan pengalaman kerja.</p>
-<p>2. Pilih foto profil dari galeri HP.</p>
-<p>3. Upload dokumen pendukung bila diperlukan.</p>
-<p>4. Tekan Buat / Perbarui CV.</p>
-<p>5. Pilih Download Word atau Cetak / Simpan PDF.</p>
-<p>6. Untuk PDF, pilih opsi <b>Simpan sebagai PDF</b>
-pada menu cetak jika tersedia.</p>
-</div>
-</div>
-
-<script>
-let fotoURL = "";
-let fotoData = "";
-let fileDokumen = [];
-
-const $ = id => document.getElementById(id);
-
-$("foto").addEventListener("change", function(){
-  const file = this.files[0];
-  if(!file) return;
-
-  if(!file.type.startsWith("image/")){
-    alert("Pilih file foto yang benar.");
-    this.value = "";
-    return;
-  }
-
-  if(file.size > 5*1024*1024){
-    alert("Ukuran foto maksimal 5 MB.");
-    this.value = "";
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = e => {
-    fotoData = e.target.result;
-    fotoURL = fotoData;
-    $("fotoPreview").src = fotoData;
-    $("fotoPreview").style.display = "block";
-  };
-  reader.readAsDataURL(file);
-});
-
-$("dokumen").addEventListener("change", function(){
-  fileDokumen = Array.from(this.files);
-  $("daftarDokumen").innerHTML = fileDokumen.length
-    ? "<p><b>Dokumen dipilih:</b></p>" +
-      fileDokumen.map(f => "• " + escapeHTML(f.name)).join("<br>")
-    : "Belum ada dokumen.";
-});
-
-function escapeHTML(value){
-  return String(value ?? "").replace(/[&<>"']/g, c => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",
-    '"':"&quot;","'":"&#39;"
-  }[c]));
-}
-
-function val(id){
-  return escapeHTML($(id).value.trim());
-}
-
-function multiline(id){
-  return val(id).replace(/\r?\n/g,"<br>");
-}
-
-function bagian(judul, isi){
-  if(!isi || !isi.replace(/<br>/g,"").trim()) return "";
-  return `<h2>${judul}</h2><p>${isi}</p>`;
-}
-
-function buatCV(){
-  if(!$("nama").value.trim()){
-    alert("Nama lengkap wajib diisi.");
-    $("nama").focus();
-    return;
-  }
-
-  const foto = fotoData
-    ? `<img class="cv-photo" src="${fotoData}" alt="Foto profil">`
-    : "";
-
-  const kontak = [
-    val("hp"),val("email"),val("alamat")
-  ].filter(Boolean).join(" | ");
-
-  $("cv").innerHTML = `
-    <div class="cv-header">
-      ${foto}
-      <div>
-        <h1>${val("nama")}</h1>
-        <h3>${val("posisi")}</h3>
-        <p>${kontak}</p>
-      </div>
-    </div>
-
-    ${bagian("PROFIL", multiline("profil"))}
-
-    ${bagian("DATA DIRI",
-      [
-        val("lahir") && "Tempat, tanggal lahir: "+val("lahir"),
-        val("gender") && "Jenis kelamin: "+val("gender"),
-        val("agama") && "Agama: "+val("agama"),
-        val("status") && "Status: "+val("status")
-      ].filter(Boolean).join("<br>")
-    )}
-
-    ${bagian("PENDIDIKAN",
-      [
-        val("pendidikan"),
-        val("sekolah"),
-        val("jurusan"),
-        val("tahun")
-      ].filter(Boolean).join("<br>")
-    )}
-
-    ${bagian("PENGALAMAN KERJA", multiline("pengalaman"))}
-    ${bagian("KEAHLIAN", multiline("keahlian"))}
-    ${bagian("PELATIHAN DAN SERTIFIKAT", multiline("sertifikat"))}
-    ${bagian("BAHASA", multiline("bahasa"))}
-
-    ${bagian("DOKUMEN PENDUKUNG",
-      fileDokumen.map(f => escapeHTML(f.name)).join("<br>")
-    )}
-
-    <p class="small">CV dibuat menggunakan Pembuat CV Online.</p>
-  `;
-
-  $("hasil").scrollIntoView({behavior:"smooth"});
-}
-
-function namaFile(){
-  const n = $("nama").value.trim()
-    .replace(/[^\w\- ]/g,"")
-    .replace(/\s+/g,"_");
-  return n || "CV";
-}
-
-function downloadWord(){
-  if(!$("nama").value.trim()){
-    alert("Isi nama dan buat CV terlebih dahulu.");
-    return;
-  }
-  buatCV();
-
-  const isi = `
-  <!DOCTYPE html>
-  <html><head><meta charset="UTF-8">
-  <style>
-  body{font-family:Arial,sans-serif;font-size:11pt;color:#222}
-  h1{color:#174a83}h2{color:#174a83;border-bottom:1px solid #aaa}
-  .cv-header{border-bottom:2px solid #174a83;padding-bottom:10px}
-  .cv-photo{width:110px;height:135px;object-fit:cover}
-  </style></head><body>
-  ${$("cv").innerHTML}
-  </body></html>`;
-
-  const blob = new Blob(["\ufeff",isi],{
-    type:"application/msword"
-  });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = namaFile()+".doc";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1500);
-}
-
-function downloadPDF(){
-  if(!$("nama").value.trim()){
-    alert("Isi nama dan buat CV terlebih dahulu.");
-    return;
-  }
-  buatCV();
-  window.print();
-}
-</script>
-</body>
-</html>
+‎
+‎<!DOCTYPE html>
+‎<html lang="id">
+‎<head>
+‎<meta charset="UTF-8">
+‎<meta name="viewport" content="width=device-width, initial-scale=1">
+‎<title>Pembuat CV</title>
+‎<style>
+‎*{box-sizing:border-box}
+‎body{margin:0;padding:12px;font-family:Arial,sans-serif;background:#eef2f7;color:#222}
+‎header{background:#174a83;color:white;padding:18px;text-align:center;border-radius:10px}
+‎.container{max-width:900px;margin:auto}
+‎.panel{background:white;padding:15px;margin:12px 0;border-radius:10px}
+‎h2{color:#174a83;font-size:19px}
+‎label{display:block;font-weight:bold;margin-top:12px}
+‎input,textarea,select{width:100%;padding:10px;border:1px solid #bbb;border-radius:6px;margin-top:5px}
+‎textarea{min-height:75px}
+‎button{padding:12px;border:0;border-radius:6px;margin-top:12px;background:#174a83;color:white;font-weight:bold}
+‎img{max-width:100%}
+‎.cv-header{display:flex;gap:15px;align-items:center;border-bottom:2px solid #174a83;padding-bottom:12px}
+‎.cv-photo{width:100px;height:130px;object-fit:contain}
+‎.cv h2{border-bottom:1px solid #ccc;padding-bottom:5px}
+‎.doc-image{display:block;max-width:100%;max-height:900px;object-fit:contain;margin:10px 0}
+‎@media print{
+‎@page{size:A4;margin:14mm}
+‎header,.form-area,.actions,.instruction,.screen-only{display:none!important}
+‎body,.container,.panel{margin:0;padding:0;background:white;box-shadow:none}
+‎#cv{border:0;padding:0}
+‎}
+‎</style>
+‎</head>
+‎<body>
+‎<header>
+‎<h1>PEMBUAT CV</h1>
+‎<p>Formulir CV dan dokumen pendukung</p>
+‎</header>
+‎<div class="container">
+‎<div class="panel form-area">
+‎<h2>Foto Profil</h2>
+‎<input type="file" id="foto" accept="image/*">
+‎<img id="fotoPreview" style="display:none;width:100px" alt="Foto profil">
+‎<h2>Data Diri</h2>
+‎<label>Nama lengkap *</label>
+‎<input id="nama" placeholder="Nama lengkap">
+‎<label>Posisi yang dilamar</label>
+‎<input id="posisi" placeholder="Posisi pekerjaan">
+‎<label>Tempat, tanggal lahir</label>
+‎<input id="lahir">
+‎<label>Jenis kelamin</label>
+‎<select id="gender"><option value="">Pilih</option><option>Laki-laki</option><option>Perempuan</option></select>
+‎<label>Nomor HP / WhatsApp</label>
+‎<input id="hp">
+‎<label>Email</label>
+‎<input id="email" type="email">
+‎<label>Alamat</label>
+‎<textarea id="alamat"></textarea>
+‎<label>Agama</label>
+‎<input id="agama">
+‎<label>Status perkawinan</label>
+‎<input id="status">
+‎<h2>Pendidikan</h2>
+‎<label>Pendidikan terakhir</label>
+‎<input id="pendidikan" placeholder="SMA / MA / SMK / Kuliah">
+‎<label>Nama sekolah</label>
+‎<input id="sekolah">
+‎<label>Jurusan</label>
+‎<input id="jurusan">
+‎<label>Tahun masuk - lulus</label>
+‎<input id="tahun">
+‎<h2>Pengalaman Kerja</h2>
+‎<textarea id="pengalaman" placeholder="Perusahaan, posisi, proyek, periode dan tugas"></textarea>
+‎<h2>Keahlian</h2>
+‎<textarea id="keahlian" placeholder="Keahlian teknis"></textarea>
+‎<label>Sertifikat dan pelatihan</label>
+‎<textarea id="sertifikat"></textarea>
+‎<label>Bahasa</label>
+‎<input id="bahasa">
+‎<h2>Tentang Saya</h2>
+‎<textarea id="profil"></textarea>
+‎<h2>Dokumen Pendukung</h2>
+‎<label>Upload gambar ijazah / sertifikat</label>
+‎<input type="file" id="dokumen" accept="image/*,.pdf" multiple>
+‎<div id="daftarDokumen"></div>
+‎<button type="button" onclick="buatCV()">BUAT / PERBARUI CV</button>
+‎</div>
+‎</div>
+‎
+‎<div class="panel" id="hasil">
+‎<h2 class="screen-only">Pratinjau CV</h2>
+‎<div id="cv">Isi data lalu tekan BUAT / PERBARUI CV.</div>
+‎</div>
+‎
+‎<div class="panel actions">
+‎<button type="button" onclick="downloadWord()">DOWNLOAD WORD</button>
+‎<button type="button" onclick="downloadPDF()">SIMPAN PDF</button>
+‎</div>
+‎
+‎<div class="panel instruction">
+‎<h2>Cara Pakai</h2>
+‎<p>1. Isi formulir dan unggah foto.</p>
+‎<p>2. Unggah gambar ijazah atau sertifikat.</p>
+‎<p>3. Tekan BUAT / PERBARUI CV.</p>
+‎<p>4. Pilih DOWNLOAD WORD atau SIMPAN PDF.</p>
+‎</div>
+‎</div>
+‎<script>
+‎let fotoData = "";
+‎let fileDokumen = [];
+‎
+‎const $ = id => document.getElementById(id);
+‎
+‎$("foto").addEventListener("change", function(){
+‎  const file = this.files[0];
+‎  if(!file) return;
+‎  if(!file.type.startsWith("image/")){
+‎    alert("Pilih file gambar.");
+‎    return;
+‎  }
+‎  const reader = new FileReader();
+‎  reader.onload = e => {
+‎    fotoData = e.target.result;
+‎    $("fotoPreview").src = fotoData;
+‎    $("fotoPreview").style.display = "block";
+‎  };
+‎  reader.readAsDataURL(file);
+‎});
+‎
+‎$("dokumen").addEventListener("change", async function(){
+‎  fileDokumen = [];
+‎  for(const file of this.files){
+‎    if(file.size > 8*1024*1024){
+‎      alert(file.name + " terlalu besar (maksimal 8 MB).");
+‎      continue;
+‎    }
+‎    if(file.type.startsWith("image/")){
+‎      const data = await new Promise((resolve,reject)=>{
+‎        const r = new FileReader();
+‎        r.onload = () => resolve(r.result);
+‎        r.onerror = reject;
+‎        r.readAsDataURL(file);
+‎      });
+‎      fileDokumen.push({
+‎        name:file.name,
+‎        data:data
+‎      });
+‎    } else {
+‎      fileDokumen.push({
+‎        name:file.name,
+‎        data:""
+‎      });
+‎    }
+‎  }
+‎  $("daftarDokumen").textContent =
+‎    fileDokumen.map(f=>f.name).join(", ");
+‎});
+‎
+‎function esc(s){
+‎  return String(s || "").replace(/[&<>"']/g,c=>({
+‎    "&":"&amp;","<":"&lt;",">":"&gt;",
+‎    '"':"&quot;","'":"&#39;"
+‎  }[c]));
+‎}
+‎
+‎function get(id){
+‎  return esc($(id).value.trim());
+‎}
+‎
+‎function bagian(judul, isi){
+‎  return isi ? `<h2>${judul}</h2><p>${isi}</p>` : "";
+‎}
+‎
+‎function buatCV(){
+‎  if(!$("nama").value.trim()){
+‎    alert("Nama lengkap wajib diisi.");
+‎    return false;
+‎  }
+‎
+‎  const kontak = [get("hp"),get("email"),get("alamat")]
+‎    .filter(Boolean).join(" | ");
+‎
+‎  const pendidikan = [
+‎    get("pendidikan"),get("sekolah"),
+‎    get("jurusan"),get("tahun")
+‎  ].filter(Boolean).join("<br>");
+‎
+‎  const dataDiri = [
+‎    get("lahir"),get("gender"),get("agama"),get("status")
+‎  ].filter(Boolean).join("<br>");
+‎
+‎  const foto = fotoData
+‎    ? `<img class="cv-photo" src="${fotoData}" alt="Foto profil">`
+‎    : "";
+‎
+‎  const dokumen = fileDokumen.map(f => f.data
+‎    ? `<h3>${esc(f.name)}</h3>
+‎       <img class="doc-image" src="${f.data}" alt="${esc(f.name)}">`
+‎    : `<p>${esc(f.name)} (nama file saja)</p>`
+‎  ).join("");
+‎
+‎  $("cv").innerHTML = `
+‎    <div class="cv-header">
+‎      ${foto}
+‎      <div>
+‎        <h1>${get("nama")}</h1>
+‎        <h3>${get("posisi")}</h3>
+‎        <p>${kontak}</p>
+‎      </div>
+‎    </div>
+‎    ${bagian("PROFIL",get("profil"))}
+‎    ${bagian("DATA DIRI",dataDiri)}
+‎    ${bagian("PENDIDIKAN",pendidikan)}
+‎    ${bagian("PENGALAMAN KERJA",get("pengalaman").replace(/\n/g,"<br>"))}
+‎    ${bagian("KEAHLIAN",get("keahlian").replace(/\n/g,"<br>"))}
+‎    ${bagian("SERTIFIKAT",get("sertifikat").replace(/\n/g,"<br>"))}
+‎    ${bagian("BAHASA",get("bahasa"))}
+‎    ${dokumen ? `<h2>DOKUMEN PENDUKUNG</h2>${dokumen}` : ""}
+‎  `;
+‎  return true;
+‎}
+‎
+‎function downloadWord(){
+‎  if(!buatCV()) return;
+‎  const css = document.querySelector("style").innerHTML;
+‎  const html = `<!DOCTYPE html><html><head>
+‎    <meta charset="UTF-8"><style>${css}</style>
+‎    </head><body><div class="cv">${$("cv").innerHTML}</div></body></html>`;
+‎  const blob = new Blob(["\ufeff",html],{
+‎    type:"application/msword"
+‎  });
+‎  const url = URL.createObjectURL(blob);
+‎  const a = document.createElement("a");
+‎  a.href = url;
+‎  a.download = ($("nama").value.trim() || "CV") + ".doc";
+‎  a.click();
+‎  setTimeout(()=>URL.revokeObjectURL(url),2000);
+‎}
+‎
+‎function downloadPDF(){
+‎  if(!buatCV()) return;
+‎  window.print();
+‎}
+‎</script>
+‎</body>
+‎</html>
