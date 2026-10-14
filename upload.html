@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#496367">
+<title>Upload Berkas - Ifan Qoirun</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #edf1f2;
+    color: #263638;
+}
+
+header {
+    background: #496367;
+    color: white;
+    padding: 22px 16px;
+}
+
+header h1 {
+    margin: 0 0 7px;
+    font-size: 25px;
+}
+
+header p { margin: 0; font-size: 14px; }
+
+nav {
+    background: white;
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+nav a {
+    color: #496367;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 18px;
+    font-size: 14px;
+}
+
+main {
+    width: min(100% - 24px, 760px);
+    margin: 22px auto;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 18px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px #0000000a;
+}
+
+h2 {
+    margin: 0 0 16px;
+    font-size: 19px;
+}
+
+label {
+    display: block;
+    margin: 14px 0 7px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    min-height: 45px;
+    padding: 10px;
+    border: 1px solid #cbd4d5;
+    border-radius: 8px;
+    background: white;
+    font-size: 15px;
+}
+
+button, .button {
+    border: 0;
+    border-radius: 8px;
+    padding: 11px 14px;
+    background: #496367;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+button:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.primary {
+    width: 100%;
+    margin-top: 16px;
+    min-height: 47px;
+    font-weight: bold;
+}
+
+.secondary {
+    background: #e8eeee;
+    color: #30494c;
+}
+
+.danger {
+    background: #a83232;
+}
+
+.note {
+    font-size: 13px;
+    color: #5d6c6e;
+    line-height: 1.6;
+}
+
+.warning {
+    background: #fff4d9;
+    color: #6d5014;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.status {
+    margin-top: 12px;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.file-item {
+    border: 1px solid #dce3e4;
+    border-radius: 10px;
+    padding: 14px;
+    margin-top: 12px;
+}
+
+.file-name {
+    font-weight: bold;
+    overflow-wrap: anywhere;
+    margin-bottom: 7px;
+}
+
+.file-meta {
+    color: #687779;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.actions button {
+    flex: 1;
+    min-width: 90px;
+}
+
+#preview {
+    display: none;
+    width: 100%;
+    height: 65vh;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+#imagePreview {
+    display: none;
+    max-width: 100%;
+    max-height: 65vh;
+    margin: auto;
+}
+
+footer {
+    text-align: center;
+    color: #6c7b7d;
+    font-size: 12px;
+    padding: 20px;
+}
+
+@media (max-width: 420px) {
+    .card { padding: 15px; }
+    header h1 { font-size: 22px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Upload Berkas</h1>
+    <p>CV Online — Ifan Qoirun</p>
+</header>
+
+<nav>
+    <a href="./index.html">← Kembali ke CV</a>
+    <a href="./upload.html">Upload Berkas</a>
+</nav>
+
+<main>
+
+    <section class="card">
+        <h2>📁 Tambah Berkas</h2>
+
+        <div class="warning">
+            Berkas disimpan di penyimpanan lokal browser pada HP ini,
+            bukan di server. Jangan menghapus data situs jika ingin
+            mempertahankan berkas yang tersimpan.
+        </div>
+
+        <form id="uploadForm">
+
+            <label for="category">Jenis berkas</label>
+            <select id="category" required>
+                <option value="KTP">KTP</option>
+                <option value="Ijazah">Ijazah</option>
+                <option value="Sertifikat K3 Umum">Sertifikat K3 Umum</option>
+                <option value="Sertifikat lainnya">Sertifikat lainnya</option>
+                <option value="CV">CV</option>
+                <option value="Surat lamaran">Surat lamaran kerja</option>
+                <option value="Dokumen lainnya">Dokumen lainnya</option>
+            </select>
+
+            <label for="file">Pilih PDF atau foto</label>
+            <input
+                id="file"
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png"
+                required
+            >
+
+            <p class="note">
+                Format: PDF, JPG, JPEG, PNG. Maksimal 10 MB per berkas.
+            </p>
+
+            <button class="primary" type="submit" id="saveButton">
+                Simpan Berkas di HP
+            </button>
+
+            <div id="status" class="status" role="status"></div>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>🗂️ Berkas Tersimpan</h2>
+        <p class="note">
+            Daftar berkas yang tersimpan pada browser ini.
+        </p>
+        <div id="fileList">Memuat penyimpanan...</div>
+    </section>
+
+    <section class="card" id="previewCard" hidden>
+        <h2>Pratinjau Berkas</h2>
+        <p id="previewName" class="note"></p>
+        <img id="imagePreview" alt="Pratinjau foto berkas">
+        <iframe id="preview" title="Pratinjau PDF"></iframe>
+        <button class="secondary" id="closePreview" style="margin-top:12px">
+            Tutup Pratinjau
+        </button>
+    </section>
+
+</main>
+
+<footer>
+    CV Online Ifan Qoirun · Penyimpanan lokal browser
+</footer>
+
+<script>
+"use strict";
+
+const DB_NAME = "IfanQoirunDocuments";
+const DB_VERSION = 1;
+const STORE_NAME = "documents";
+const MAX_SIZE = 10 * 1024 * 1024;
+
+const form = document.getElementById("uploadForm");
+const fileInput = document.getElementById("file");
+const categoryInput = document.getElementById("category");
+const statusBox = document.getElementById("status");
+const fileList = document.getElementById("fileList");
+const saveButton = document.getElementById("saveButton");
+const previewCard = document.getElementById("previewCard");
+const previewFrame = document.getElementById("preview");
+const previewImage = document.getElementById("imagePreview");
+const previewName = document.getElementById("previewName");
+
+let db;
+let previewUrl = null;
+
+function openDatabase() {
+    return new Promise((resolve, reject) => {
+        if (!("indexedDB" in window)) {
+            reject(new Error("Browser tidak mendukung IndexedDB."));
+            return;
+        }
+
+        const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+        request.onupgradeneeded = () => {
+            const database = request.result;
+
+            if (!database.objectStoreNames.contains(STORE_NAME)) {
+                database.createObjectStore(STORE_NAME, {
+                    keyPath: "id",
+                    autoIncrement: true
+                });
+            }
+        };
+
+        request.onsuccess = () => resolve(request.result);
+        request.onerror = () => reject(
+            request.error || new Error("Gagal membuka penyimpanan.")
+        );
+    });
+}
+
+function transaction(mode, action) {
+    return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE_NAME, mode);
+        const store = tx.objectStore(STORE_NAME);
+        let result;
+
+        try {
+            action(store, value => {
+                result = value;
+            });
+        } catch (error) {
+            reject(error);
+            return;
+        }
+
+        tx.oncomplete = () => resolve(result);
+        tx.onerror = () => reject(
+            tx.error || new Error("Transaksi penyimpanan gagal.")
+        );
+        tx.onabort = () => reject(
+            tx.error || new Error("Transaksi dibatalkan.")
+        );
+    });
+}
+
+function saveDocument(documentData) {
+    return transaction("readwrite", (store, setResult) => {
+        const request = store.add(documentData);
+        request.onsuccess = () => setResult(request.result);
+    });
+}
+
+function getDocuments() {
+    return transaction("readonly", (store, setResult) => {
+        const request = store.getAll();
+        request.onsuccess = () => setResult(request.result);
+    });
+}
+
+function getDocument(id) {
+    return transaction("readonly", (store, setResult) => {
+        const request = store.get(Number(id));
+        request.onsuccess = () => setResult(request.result);
+    });
+}
+
+function deleteDocument(id) {
+    return transaction("readwrite", (store) => {
+        store.delete(Number(id));
+    });
+}
+
+function formatSize(bytes) {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1024 * 1024) {
+        return (bytes / 1024).toFixed(1) + " KB";
+    }
+    return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+}
+
+function formatDate(value) {
+    return new Date(value).toLocaleString("id-ID");
+}
+
+function showStatus(message, error = false) {
+    statusBox.textContent = message;
+    statusBox.style.color = error ? "#a83232" : "#315c42";
+}
+
+function allowedFile(file) {
+    const name = file.name.toLowerCase();
+
+    const validExtension =
+        /\.(pdf|jpg|jpeg|png)$/.test(name);
+
+    const validMime = [
+        "application/pdf",
+        "image/jpeg",
+        "image/png"
+    ].includes(file.type);
+
+    return validExtension && validMime;
+}
+
+form.addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const file = fileInput.files[0];
+
+    if (!file) {
+        showStatus("Pilih berkas terlebih dahulu.", true);
+        return;
+    }
+
+    if (!allowedFile(file)) {
+        showStatus("Format harus PDF, JPG, JPEG, atau PNG.", true);
+        return;
+    }
+
+    if (file.size === 0 || file.size > MAX_SIZE) {
+        showStatus("Ukuran berkas harus lebih dari 0 dan maksimal 10 MB.", true);
+        return;
+    }
+
+    saveButton.disabled = true;
+    showStatus("Menyimpan berkas secara lokal...");
+
+    try {
+        await saveDocument({
+            category: categoryInput.value,
+            name: file.name,
+            type: file.type,
+            size: file.size,
+            date: Date.now(),
+            blob: file
+        });
+
+        form.reset();
+        showStatus("Berkas berhasil disimpan di browser HP ini.");
+        await renderList();
+    } catch (error) {
+        console.error(error);
+        showStatus(
+            "Gagal menyimpan. Periksa ruang penyimpanan browser atau izin situs.",
+            true
+        );
+    } finally {
+        saveButton.disabled = false;
+    }
+});
+
+function makeButton(label, className, handler) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = label;
+    button.className = className;
+    button.addEventListener("click", handler);
+    return button;
+}
+
+async function renderList() {
+    try {
+        const documents = await getDocuments();
+        fileList.replaceChildren();
+
+        if (!documents.length) {
+            fileList.textContent = "Belum ada berkas yang disimpan.";
+            return;
+        }
+
+        documents.sort((a, b) => b.date - a.date);
+
+        for (const doc of documents) {
+            const item = document.createElement("article");
+            item.className = "file-item";
+
+            const name = document.createElement("div");
+            name.className = "file-name";
+            name.textContent = doc.name;
+
+            const meta = document.createElement("div");
+            meta.className = "file-meta";
+            meta.textContent =
+                doc.category + " · " + formatSize(doc.size) +
+                " · " + formatDate(doc.date);
+
+            const actions = document.createElement("div");
+            actions.className = "actions";
+
+            actions.append(
+                makeButton("Lihat", "secondary", () => viewDocument(doc.id)),
+                makeButton("Unduh", "", () => downloadDocument(doc.id)),
+                makeButton("Hapus", "danger", () => removeDocument(doc.id))
+            );
+
+            item.append(name, meta, actions);
+            fileList.appendChild(item);
+        }
+    } catch (error) {
+        console.error(error);
+        fileList.textContent =
+            "Tidak dapat membaca penyimpanan lokal browser.";
+    }
+}
+
+function clearPreviewUrl() {
+    if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+        previewUrl = null;
+    }
+}
+
+async function viewDocument(id) {
+    try {
+        const doc = await getDocument(id);
+        if (!doc) return;
+
+        clearPreviewUrl();
+        previewUrl = URL.createObjectURL(doc.blob);
+
+        previewCard.hidden = false;
+        previewName.textContent = doc.name;
+
+        previewFrame.style.display = "none";
+        previewImage.style.display = "none";
+        previewFrame.removeAttribute("src");
+        previewImage.removeAttribute("src");
+
+        if (doc.type === "application/pdf") {
+            previewFrame.src = previewUrl;
+            previewFrame.style.display = "block";
+        } else if (doc.type.startsWith("image/")) {
+            previewImage.src = previewUrl;
+            previewImage.style.display = "block";
+        }
+
+        previewCard.scrollIntoView({ behavior: "smooth" });
+    } catch (error) {
+        showStatus("Gagal membuka berkas.", true);
+    }
+}
+
+async function downloadDocument(id) {
+    try {
+        const doc = await getDocument(id);
+        if (!doc) return;
+
+        const url = URL.createObjectURL(doc.blob);
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = doc.name;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+    } catch (error) {
+        showStatus("Gagal mengunduh berkas.", true);
+    }
+}
+
+async function removeDocument(id) {
+    if (!confirm("Hapus berkas ini dari penyimpanan browser?")) {
+        return;
+    }
+
+    try {
+        await deleteDocument(id);
+        clearPreviewUrl();
+        previewCard.hidden = true;
+        await renderList();
+        showStatus("Berkas berhasil dihapus.");
+    } catch (error) {
+        showStatus("Gagal menghapus berkas.", true);
+    }
+}
+
+document.getElementById("closePreview").addEventListener("click", () => {
+    clearPreviewUrl();
+    previewFrame.removeAttribute("src");
+    previewImage.removeAttribute("src");
+    previewCard.hidden = true;
+});
+
+window.addEventListener("pagehide", clearPreviewUrl);
+
+(async function initialize() {
+    try {
+        db = await openDatabase();
+        await renderList();
+    } catch (error) {
+        console.error(error);
+        fileList.textContent =
+            "Penyimpanan tidak tersedia. Coba buka halaman melalui browser " +
+            "Chrome terbaru dan periksa pengaturan situs.";
+        saveButton.disabled = true;
+    }
+})();
+</script>
+
+</body>
+</html>
