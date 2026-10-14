@@ -3,330 +3,345 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CV - Ifan Qoirun</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CV Online - Buat CV Sendiri</title>
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#edf1f2;color:#303638}
+header{background:#496367;color:white;padding:20px}
+header h1{margin:0 0 6px;font-size:23px}
+header p{margin:0;font-size:13px}
+nav{padding:12px;background:white;display:flex;gap:14px;flex-wrap:wrap}
+nav a{color:#496367;font-weight:bold;text-decoration:none;font-size:14px}
+.container{max-width:1000px;margin:20px auto;padding:0 12px}
+.card{background:white;padding:18px;border-radius:12px;margin-bottom:18px}
+h2{font-size:19px;margin-top:0}
+label{display:block;font-size:13px;font-weight:bold;margin:13px 0 6px}
+input,textarea{width:100%;padding:11px;border:1px solid #cbd4d5;border-radius:7px;font-size:14px;font-family:inherit}
+textarea{min-height:75px;resize:vertical}
+button,.btn{padding:11px 15px;border:0;border-radius:7px;background:#496367;color:white;font-size:14px;cursor:pointer;text-decoration:none;display:inline-block}
+.secondary{background:#e7eded;color:#30494c}
+.danger{background:#a83232}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.actions button{flex:1}
+.note{font-size:12px;color:#657274;line-height:1.6}
+.cv{display:grid;grid-template-columns:34% 66%;background:white;box-shadow:0 3px 15px #0001}
+.sidebar{background:#496367;color:white;padding:24px}
+.content{padding:28px}
+.photo{width:100%;max-width:190px;aspect-ratio:1/1;margin:0 auto 20px;background:#f4f5f6;border:6px solid white;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover}
+.photo span{font-size:65px;color:#cbd1d8}
+.side-title{border-top:2px solid #b8c5c6;padding-top:10px;margin:24px 0 8px;font-size:14px}
+#cvContacts{font-size:12px;line-height:1.8;overflow-wrap:anywhere}
+.cvName{font-size:clamp(25px,4vw,38px);color:#496367;margin:0 0 20px;border-bottom:4px solid #111;padding-bottom:12px;overflow-wrap:anywhere}
+.cvSection{margin-bottom:23px;overflow-wrap:anywhere}
+.cvSection h3{font-size:15px;text-transform:uppercase;border-bottom:2px solid #888;padding-bottom:5px;margin:0 0 10px}
+.cvSection p,.cvSection li{font-size:12px;line-height:1.7;white-space:pre-line}
+.cvSection ul{padding-left:18px}
+#cvSkills{padding-left:17px;font-size:12px;line-height:1.8}
+@media(max-width:600px){
+ .cv{grid-template-columns:1fr}
+ .sidebar{padding:20px}
+ .content{padding:22px}
+ .photo{max-width:150px}
 }
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #e9edef;
-    color: #333;
-    padding: 25px 10px;
-    line-height: 1.5;
-}
-
-.cv {
-    max-width: 900px;
-    min-height: 1120px;
-    margin: auto;
-    background: white;
-    display: grid;
-    grid-template-columns: 34% 66%;
-    box-shadow: 0 5px 25px #0002;
-}
-
-.sidebar {
-    background: #496367;
-    color: white;
-    padding: 35px 25px;
-}
-
-.photo {
-    width: 100%;
-    max-width: 230px;
-    aspect-ratio: 1 / 1;
-    margin: 0 auto 30px;
-    background: #f7f8f9;
-    border: 8px solid white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-.photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.placeholder {
-    font-size: 90px;
-    color: #cbd1d8;
-}
-
-.contact {
-    list-style: none;
-    font-size: 12px;
-    margin-bottom: 30px;
-    overflow-wrap: anywhere;
-}
-
-.contact li {
-    margin-bottom: 9px;
-}
-
-.side-title {
-    border-top: 2px solid #b8c5c6;
-    padding-top: 12px;
-    margin: 25px 0 10px;
-    font-size: 16px;
-    text-transform: uppercase;
-}
-
-.skills {
-    padding-left: 18px;
-    font-size: 12px;
-}
-
-.content {
-    padding: 38px 35px;
-}
-
-.name {
-    font-size: clamp(27px, 4vw, 42px);
-    color: #496367;
-    line-height: 1.2;
-    padding-bottom: 12px;
-    border-bottom: 5px solid #111;
-    margin-bottom: 28px;
-}
-
-.section {
-    margin-bottom: 27px;
-}
-
-.section h2 {
-    font-size: 16px;
-    color: #111;
-    border-bottom: 2px solid #777;
-    margin-bottom: 12px;
-    padding-bottom: 5px;
-    text-transform: uppercase;
-}
-
-.section p,
-.section li {
-    font-size: 12px;
-    line-height: 1.7;
-}
-
-.job {
-    margin-bottom: 19px;
-}
-
-.job h3 {
-    font-size: 13px;
-    margin-bottom: 3px;
-}
-
-.company {
-    font-size: 12px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.job ul {
-    padding-left: 17px;
-}
-
-.education {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.date {
-    font-size: 11px;
-    white-space: nowrap;
-}
-
-@media (max-width: 600px) {
-    body {
-        padding: 0;
-        background: white;
-    }
-
-    .cv {
-        grid-template-columns: 1fr;
-        min-height: auto;
-    }
-
-    .sidebar {
-        padding: 25px;
-    }
-
-    .photo {
-        max-width: 180px;
-    }
-
-    .content {
-        padding: 28px 22px;
-    }
-
-    .contact {
-        font-size: 13px;
-    }
-}
-
-@media print {
-    body {
-        padding: 0;
-        background: white;
-    }
-
-    .cv {
-        box-shadow: none;
-        max-width: none;
-    }
-
-    .sidebar {
-        print-color-adjust: exact;
-        -webkit-print-color-adjust: exact;
-    }
+@media print{
+ body{background:white}
+ header,nav,.editor,.previewTitle,.previewActions{display:none!important}
+ .container{max-width:none;margin:0;padding:0}
+ .card{padding:0;margin:0}
+ .cv{grid-template-columns:34% 66%;box-shadow:none;min-height:270mm}
+ .sidebar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .cvName{font-size:27px}
 }
 </style>
 </head>
 <body>
-<a href="./upload.html"
-   style="display:inline-block;
-          padding:12px 18px;
-          background:#496367;
-          color:white;
-          text-decoration:none;
-          border-radius:8px;
-          margin:12px;">
-    📁 Upload Berkas
-</a>
+
+<header>
+<h1>CV Online</h1>
+<p>Buat CV sendiri dan simpan sebagai PDF</p>
+</header>
+
+<nav>
+<a href="#form">Isi Data CV</a>
+<a href="#preview">Lihat CV</a>
+<a href="./upload.html">Upload Berkas →</a>
+</nav>
+
+<div class="container">
+
+<section class="card editor" id="form">
+<h2>📝 Formulir Data Pribadi</h2>
+<p class="note">Isi data sesuai identitas dan pengalamanmu sendiri. Data formulir disimpan di browser ini.</p>
+
+<label for="name">Nama lengkap</label>
+<input id="name" placeholder="Masukkan nama lengkap">
+
+<label for="job">Posisi yang dilamar</label>
+<input id="job" placeholder="Contoh: Teknisi Telekomunikasi">
+
+<label for="phone">Nomor HP / WhatsApp</label>
+<input id="phone" placeholder="08xxxxxxxxxx">
+
+<label for="email">Email</label>
+<input id="email" type="email" placeholder="nama@email.com">
+
+<label for="address">Alamat / Domisili</label>
+<input id="address" placeholder="Kota, kabupaten, provinsi">
+
+<label for="birth">Tempat dan tanggal lahir</label>
+<input id="birth" placeholder="Contoh: Wonogiri, 1 Januari 2000">
+
+<label for="nationality">Kewarganegaraan</label>
+<input id="nationality" placeholder="Indonesia">
+
+<label for="marital">Status perkawinan (opsional)</label>
+<input id="marital" placeholder="Opsional">
+
+<label for="religion">Agama (opsional)</label>
+<input id="religion" placeholder="Opsional">
+
+<label for="photo">Foto diri</label>
+<input id="photo" type="file" accept="image/jpeg,image/png">
+<p class="note">Pilih foto JPG atau PNG dari HP.</p>
+
+<label for="profile">Profil singkat</label>
+<textarea id="profile" placeholder="Tuliskan ringkasan diri dan tujuan karier"></textarea>
+
+<label for="skills">Keterampilan</label>
+<textarea id="skills" placeholder="Pisahkan setiap keterampilan dengan baris baru"></textarea>
+
+<label for="experience">Pengalaman kerja</label>
+<textarea id="experience" placeholder="Jabatan, perusahaan, lokasi, dan tugas. Pisahkan setiap pekerjaan dengan baris kosong."></textarea>
+
+<label for="education">Pendidikan</label>
+<textarea id="education" placeholder="Sekolah, jurusan, kota, dan tahun pendidikan"></textarea>
+
+<label for="certificates">Sertifikasi / Pelatihan</label>
+<textarea id="certificates" placeholder="Contoh: Sertifikat K3 Umum"></textarea>
+
+<div class="actions">
+<button type="button" id="update">Tampilkan CV</button>
+<button type="button" class="secondary" id="save">Simpan Data</button>
+<button type="button" class="danger" id="clear">Hapus Data</button>
+</div>
+<p id="status" class="note" role="status"></p>
+</section>
+
+<section class="card" id="preview">
+<h2 class="previewTitle">📄 Pratinjau CV</h2>
 <div class="cv">
+<aside class="sidebar">
+<div class="photo">
+<img id="cvPhoto" alt="Foto diri" hidden>
+<span id="photoPlaceholder">👤</span>
+</div>
+<div id="cvContacts"></div>
+<h3 class="side-title">Keterampilan</h3>
+<ul id="cvSkills"></ul>
+</aside>
 
-    <!-- KOLOM KIRI -->
-    <aside class="sidebar">
+<main class="content">
+<h1 class="cvName" id="cvName">Nama Lengkap</h1>
 
-        <div class="photo">
-            <!-- Ganti foto.jpg dengan nama file foto kamu -->
-            <img src="foto.jpg"
-                 alt="Foto Ifan Qoirun"
-                 onerror="this.style.display='none';
-                 this.parentElement.innerHTML=
-                 '<span class=&quot;placeholder&quot;>●</span>';">
-        </div>
+<section class="cvSection">
+<h3>Profil</h3>
+<p id="cvProfile">Profil singkat akan tampil di sini.</p>
+</section>
 
-        <ul class="contact">
-            <li>📍 Tirtomoyo, Wonogiri, Jawa Tengah</li>
-            <li>📞 0895401448864</li>
-            <li>✉️ ifanqoirunifan05@gmail.com</li>
-            <li>🎂 05 Februari 1999</li>
-            <li>🇮🇩 Indonesia</li>
-            <li>💍 Kawin</li>
-            <li>☪ Islam</li>
-        </ul>
+<section class="cvSection">
+<h3>Pengalaman Kerja</h3>
+<div id="cvExperience"></div>
+</section>
 
-        <h2 class="side-title">Keterampilan</h2>
-        <ul class="skills">
-            <li>Memahami dan melaksanakan pekerjaan secara tepat dan bertanggung jawab.</li>
-            <li>Instalasi perangkat telekomunikasi.</li>
-            <li>Troubleshooting perangkat BTS.</li>
-            <li>Mampu bekerja sama dalam tim.</li>
-        </ul>
+<section class="cvSection">
+<h3>Pendidikan</h3>
+<div id="cvEducation"></div>
+</section>
 
-    </aside>
-
-    <!-- KOLOM KANAN -->
-    <main class="content">
-
-        <h1 class="name">Ifan Qoirun</h1>
-
-        <section class="section">
-            <h2>Profil</h2>
-            <p>
-                Komunikator yang baik, ramah, dan mampu beradaptasi
-                dengan berbagai situasi. Mencari peluang kerja untuk
-                menunjukkan dedikasi serta kemampuan dalam bekerja.
-                Memiliki pengalaman di bidang telekomunikasi,
-                instalasi perangkat BTS, dan troubleshooting.
-                Mengutamakan kualitas kerja, produktivitas, serta
-                kemampuan belajar yang cepat.
-            </p>
-        </section>
-
-        <section class="section">
-            <h2>Pengalaman Kerja</h2>
-
-            <div class="job">
-                <h3>Teknisi</h3>
-                <div class="company">
-                    PT SINERGI AITIKOM - Jakarta
-                </div>
-                <ul>
-                    <li>Melakukan instalasi perangkat BTS Nokia.</li>
-                    <li>Troubleshooting perangkat Nokia dan Ericsson.</li>
-                    <li>Instalasi dan perbaikan perangkat telekomunikasi.</li>
-                </ul>
-            </div>
-
-            <div class="job">
-                <h3>Teknisi</h3>
-                <div class="company">
-                    PT ADYAWINSA - Jakarta
-                </div>
-                <ul>
-                    <li>Pemasangan perangkat Huawei.</li>
-                    <li>Troubleshooting perangkat Huawei.</li>
-                </ul>
-            </div>
-
-            <div class="job">
-                <h3>Team Leader</h3>
-                <div class="company">
-                    PT SEMESTA ENERGI SERVICE - Surabaya
-                </div>
-                <ul>
-                    <li>Instalasi dan troubleshooting perangkat ZTE.</li>
-                    <li>Mengkoordinasikan pekerjaan tim lapangan.</li>
-                </ul>
-            </div>
-
-            <div class="job">
-                <h3>Team Leader</h3>
-                <div class="company">
-                    PT KCCTECH - Surabaya
-                </div>
-                <ul>
-                    <li>Instalasi dan troubleshooting perangkat ZTE.</li>
-                </ul>
-            </div>
-
-        </section>
-
-        <section class="section">
-            <h2>Pendidikan</h2>
-            <div class="education">
-                <div>
-                    <p>IPS</p>
-                    <p><strong>MA GANI TIRTOASRI</strong></p>
-                    <p>Tirtomoyo, Wonogiri</p>
-                </div>
-                <span class="date">12/2014 - 07/2025</span>
-            </div>
-        </section>
-
-        <section class="section">
-            <h2>Sertifikasi</h2>
-            <ul>
-                <li>Sertifikat K3 Umum</li>
-            </ul>
-        </section>
-
-    </main>
+<section class="cvSection">
+<h3>Sertifikasi</h3>
+<div id="cvCertificates"></div>
+</section>
+</main>
 </div>
 
+<div class="actions previewActions">
+<button type="button" id="pdf">Cetak / Simpan PDF</button>
+</div>
+<p class="note previewActions">Pilih opsi Cetak di browser, lalu pilih Simpan sebagai PDF.</p>
+</section>
+</div>
+
+<script>
+const fields = [
+"name","job","phone","email","address","birth","nationality",
+"marital","religion","profile","skills","experience",
+"education","certificates"
+];
+
+const $ = id => document.getElementById(id);
+let photoData = "";
+
+function text(id) {
+ return $(id).value.trim();
+}
+
+function addContact(parent, label, value) {
+ if (!value) return;
+ const line = document.createElement("div");
+ line.textContent = label + " " + value;
+ parent.appendChild(line);
+}
+
+function addLines(parent, value) {
+ parent.replaceChildren();
+ const lines = value.split(/\n/).map(x=>x.trim()).filter(Boolean);
+ if (!lines.length) {
+   const p = document.createElement("p");
+   p.textContent = "-";
+   parent.appendChild(p);
+   return;
+ }
+ const ul = document.createElement("ul");
+ lines.forEach(line=>{
+   const li = document.createElement("li");
+   li.textContent = line;
+   ul.appendChild(li);
+ });
+ parent.appendChild(ul);
+}
+
+function addParagraphs(parent, value) {
+ parent.replaceChildren();
+ const parts = value.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean);
+ if (!parts.length) {
+   const p = document.createElement("p");
+   p.textContent = "-";
+   parent.appendChild(p);
+   return;
+ }
+ parts.forEach(part=>{
+   const p = document.createElement("p");
+   p.textContent = part;
+   p.style.marginBottom = "10px";
+   parent.appendChild(p);
+ });
+}
+
+function render() {
+ $("cvName").textContent = text("name") || "Nama Lengkap";
+ document.title = (text("name") || "CV Online") + " - CV Online";
+
+ const contacts = $("cvContacts");
+ contacts.replaceChildren();
+ addContact(contacts,"💼",text("job"));
+ addContact(contacts,"📍",text("address"));
+ addContact(contacts,"📞",text("phone"));
+ addContact(contacts,"✉️",text("email"));
+ addContact(contacts,"🎂",text("birth"));
+ addContact(contacts,"🌐",text("nationality"));
+ addContact(contacts,"💍",text("marital"));
+ addContact(contacts,"",text("religion"));
+
+ $("cvProfile").textContent = text("profile") || "-";
+ addLines($("cvSkills"),text("skills"));
+ addParagraphs($("cvExperience"),text("experience"));
+ addParagraphs($("cvEducation"),text("education"));
+ addLines($("cvCertificates"),text("certificates"));
+
+ if (photoData) {
+   $("cvPhoto").src = photoData;
+   $("cvPhoto").hidden = false;
+   $("photoPlaceholder").hidden = true;
+ } else {
+   $("cvPhoto").hidden = true;
+   $("photoPlaceholder").hidden = false;
+ }
+}
+
+function saveData() {
+ const data = {};
+ fields.forEach(id=>data[id]=$(id).value);
+ data.photo = photoData;
+
+ try {
+   localStorage.setItem("cv-online-data",JSON.stringify(data));
+   $("status").textContent = "Data tersimpan di browser perangkat ini.";
+ } catch(error) {
+   $("status").textContent =
+    "Penyimpanan penuh. Coba gunakan foto yang lebih kecil.";
+ }
+}
+
+function loadData() {
+ try {
+   const data = JSON.parse(localStorage.getItem("cv-online-data") || "{}");
+   fields.forEach(id=>{
+     if (typeof data[id] === "string") $(id).value=data[id];
+   });
+   photoData = typeof data.photo === "string" ? data.photo : "";
+ } catch(error) {
+   $("status").textContent = "Data tersimpan tidak dapat dibaca.";
+ }
+ render();
+}
+
+$("photo").addEventListener("change",event=>{
+ const file=event.target.files[0];
+ if (!file) return;
+
+ if (!["image/jpeg","image/png"].includes(file.type)) {
+   $("status").textContent = "Gunakan foto JPG atau PNG.";
+   event.target.value="";
+   return;
+ }
+ if (file.size > 2*1024*1024) {
+   $("status").textContent = "Ukuran foto maksimal 2 MB.";
+   event.target.value="";
+   return;
+ }
+
+ const reader=new FileReader();
+ reader.onload=()=>{
+   photoData=reader.result;
+   render();
+   $("status").textContent="Foto dipilih. Tekan Simpan Data agar tersimpan.";
+ };
+ reader.readAsDataURL(file);
+});
+
+$("update").addEventListener("click",()=>{
+ render();
+ $("status").textContent="Pratinjau CV diperbarui.";
+});
+
+$("save").addEventListener("click",()=>{
+ render();
+ saveData();
+});
+
+$("clear").addEventListener("click",()=>{
+ if (!confirm("Hapus seluruh data CV yang tersimpan di browser ini?")) return;
+ fields.forEach(id=>$(id).value="");
+ photoData="";
+ $("photo").value="";
+ localStorage.removeItem("cv-online-data");
+ render();
+ $("status").textContent="Data CV dihapus.";
+});
+
+$("pdf").addEventListener("click",()=>{
+ render();
+ window.print();
+});
+
+fields.forEach(id=>{
+ $(id).addEventListener("input",render);
+});
+
+loadData();
+</script>
 </body>
 </html>
